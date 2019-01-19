@@ -1,23 +1,15 @@
 version: "3"
 services:
-  client:             
-    ports:
-      - "3000:3000"      
-    links:
-      - server
+  client:                 
     build:
       dockerfile: Dockerfile.dev
       context: ./client    
     volumes:
       - ./client/:/app      
-      - /app/node_modules          
+      - /app/node_modules  
     networks:
-      - backend  
-    depends_on:
-      - server
-  server:             
-    ports:
-      - "3050:3000"      
+      - backend           
+  server:                      
     links:
       - mongo
     build:
@@ -28,6 +20,7 @@ services:
       - /app/node_modules      
     environment:
       - NODE_PATH=src
+      - PORT=3050
       - DB_HOST=mongo
       - DB=jobinfo
       - REDIS_HOST=redis
@@ -65,7 +58,7 @@ services:
       dockerfile: Dockerfile.dev
       context: ./nginx 
     ports:
-      - '3100:80' 
+      - '3000:80' 
     networks:
       - backend
     links:
