@@ -9,9 +9,7 @@ services:
       - /app/node_modules  
     networks:
       - backend           
-  server:                      
-    links:
-      - mongo
+  server:                          
     build:
       dockerfile: Dockerfile.dev
       context: ./server    
@@ -61,8 +59,7 @@ services:
       - '3000:80' 
     networks:
       - backend
-    links:
-      - server  
+    
 
 networks: 
   backend:
