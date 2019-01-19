@@ -31,7 +31,7 @@ class App extends Component {
     event.preventDefault();
     console.log(`${this.state.title},${this.state.content}`);
     
-    axios.post("http://localhost:3050/todo",
+    axios.post("http://localhost:3000/api/todo",
       {
         title: this.state.title,
         content: this.state.content
