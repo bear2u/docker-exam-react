@@ -9,7 +9,7 @@ router.get('/', function(req, res, next) {
 router.post('/', function(req, res, next) {
   const title = req.body.title;
   const content = req.body.content;
-  res.json({title, content});
+  res.json({resut: 'ok', title, content});
 });
 
 module.exports = router;
