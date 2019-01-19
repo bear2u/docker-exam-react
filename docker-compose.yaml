@@ -27,7 +27,9 @@ services:
       - backend  
     depends_on:
       - mongo
-      - redis  
+      - redis 
+    ports:
+      - "5000:3050"   
   redis:
     container_name: redis
     image: redis
