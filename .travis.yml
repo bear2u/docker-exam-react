@@ -1,0 +1,23 @@
+sudo: required
+services:
+  - docker
+
+before_install:
+  - docker build -t bear2u/react-test -f ./client/Dockerfile.dev ./client
+
+script:
+  - docker run bear2u/react-test npm test -- --coverage
+
+# push to docker hub
+after_success:
+  - docker build -t bear2u/multi2-client ./client
+  - docker build -t bear2u/multi2-nginx ./nginx
+  - docker build -t bear2u/multi2-server ./server
+  - docker build -t bear2u/multi2-worker ./worker
+  # Log in to the docker CLI
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
+  # Take those images and push them to docker hub
+  - docker push bear2u/multi2-client
+  - docker push bear2u/multi2-nginx
+  - docker push bear2u/multi2-server
+  - docker push bear2u/multi2-worker
