@@ -1,0 +1,40 @@
+{
+    "AWSEBDockerrunVersion" : 2,
+    "containerDefinitions" : [
+        {
+            "name": "client",
+            "image": "bear2u/multi2-client",
+            "hostname": "client",
+            "essential": false,
+            "memory": 128
+        },
+        {
+            "name": "server",
+            "image": "bear2u/multi2-server",
+            "hostname": "server",
+            "essential": false,
+            "memory": 128
+        },
+        {
+            "name": "mongo",
+            "image": "mongo",
+            "hostname": "mongo",
+            "essential": false,
+            "memory": 128
+        },
+        {
+            "name": "nginx",
+            "image": "bear2u/multi2-nginx",
+            "hostname": "nginx",
+            "essential": true,
+            "portMappings": [
+                {
+                    "hostPort": 80,
+                    "containerPort": 80
+                }
+            ],
+            "links": ["client", "server"],
+            "memory": 128
+        }
+    ]
+}

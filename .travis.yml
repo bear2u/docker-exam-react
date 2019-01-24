@@ -8,7 +8,7 @@ before_install:
 script:
   - docker run bear2u/react-test npm test -- --coverage
 
-  
+
 # push to docker hub
 after_success:
   - docker build -t bear2u/multi2-client ./client
@@ -22,3 +22,16 @@ after_success:
   - docker push bear2u/multi2-nginx
   - docker push bear2u/multi2-server
   - docker push bear2u/multi2-worker
+
+deploy:
+  provider: elasticbeanstalk
+  region: ap-northeast-2
+  app: multi2-docker
+  env:  Multi2Docker-env
+  bucket_name : elasticbeanstalk-ap-northeast-2-189523858013
+  bucket_path : docker-multi2
+  on:
+    branch: master
+  access_key_id: $AWS_ACCESS_KEY
+  secret_access_key:
+    secure: $AWS_SECRET_KEY
