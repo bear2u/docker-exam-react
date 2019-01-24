@@ -8,6 +8,7 @@ before_install:
 script:
   - docker run bear2u/react-test npm test -- --coverage
 
+  
 # push to docker hub
 after_success:
   - docker build -t bear2u/multi2-client ./client
